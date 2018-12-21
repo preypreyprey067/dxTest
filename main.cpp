@@ -88,6 +88,9 @@ int main()
 		float bgColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		wnd.m_d3d11DevCon->ClearRenderTargetView(wnd.m_renderTargetView, bgColor);
 
+		wnd.m_d3d11DevCon->Draw(3, 0);
+
+		
 		UpdateScene();
 		wnd.display();
 	}
