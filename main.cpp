@@ -100,7 +100,7 @@ void UpdateScene()
 
 int main()
 {
-	
+	InitScene();
 	
 	while (wnd.isOpen())
 	{
