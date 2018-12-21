@@ -12,6 +12,7 @@ ID3D11PixelShader* pxShader;
 ID3D10Blob* vsBuffer;
 ID3D10Blob* psBuffer;
 ID3D11InputLayout* inLayout;
+ID3D11RasterizerState* rasterizerStateSolidNoCulling;
 
 D3D11_INPUT_ELEMENT_DESC layout[] =
 {
@@ -70,6 +71,24 @@ bool InitScene()
 	viewport.TopLeftY = 0;
 
 	wnd.m_d3d11DevCon->RSSetViewports(1, &viewport);
+
+	D3D11_RASTERIZER_DESC RasterizerDesc;
+	ZeroMemory(&RasterizerDesc, sizeof(RasterizerDesc));
+	RasterizerDesc.FrontCounterClockwise = FALSE;
+	RasterizerDesc.DepthBias = 0;
+	RasterizerDesc.DepthBiasClamp = 0.0f;
+	RasterizerDesc.SlopeScaledDepthBias = 0.0f;
+	RasterizerDesc.DepthClipEnable = FALSE;
+	RasterizerDesc.ScissorEnable = FALSE;
+	RasterizerDesc.MultisampleEnable = FALSE;
+	RasterizerDesc.AntialiasedLineEnable = FALSE;
+
+	// solid unculled
+	RasterizerDesc.FillMode = D3D11_FILL_SOLID;
+	RasterizerDesc.CullMode = D3D11_CULL_NONE;
+	wnd.m_d3d11Device->CreateRasterizerState(&RasterizerDesc, &rasterizerStateSolidNoCulling);
+
+	wnd.m_d3d11DevCon->RSSetState(rasterizerStateSolidNoCulling);
 
 	return true;
 }
